@@ -1,15 +1,11 @@
 import { createConnection } from "typeorm";
 
-const { NODE_ENV } = process.env;
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const notIsPrd = NODE_ENV !== "production";
-
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const connect = () =>
 	createConnection({
-		type: "database" as any,
+		type: "mongodb",
+		url: process.env.MONGODB_URL,
 		synchronize: false,
-		logging: notIsPrd,
+		logging: process.env.NODE_ENV !== "production",
 		entities: [],
 	});
