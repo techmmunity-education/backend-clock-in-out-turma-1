@@ -1,4 +1,5 @@
 import { createConnection } from "typeorm";
+import { CompanyEntity } from "v1/api/company/company.entity";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const connect = () =>
@@ -7,5 +8,5 @@ export const connect = () =>
 		url: process.env.MONGODB_URL,
 		synchronize: false,
 		logging: process.env.NODE_ENV !== "production",
-		entities: [],
+		entities: [CompanyEntity],
 	});
