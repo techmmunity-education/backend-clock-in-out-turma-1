@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"target": "es2017",
+		"module": "commonjs",
+		"moduleResolution": "Node",
+		"outDir": "dist",
+		"rootDir": "src",
+		"lib": ["ES2020", "ES2020.String"],
+		"strict": true,
+		"declaration": true,
+		"removeComments": false,
+		"strictPropertyInitialization": false,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
+		"incremental": true,
+		"types": ["node", "jest"],
+		"baseUrl": "src"
+	},
+	"include": ["src/**/*.ts", "jest.config.js"]
+}
