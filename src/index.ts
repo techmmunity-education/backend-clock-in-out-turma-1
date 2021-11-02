@@ -1,9 +1,8 @@
 import Fastify from "fastify";
-import { connect } from "v1/config/database";
+import { connect } from "v1/config/mongodb";
 import "reflect-metadata";
 import { setV1Controller } from "v1/v1.controller";
-
-const PORT = 3000;
+import fastifyCors from "fastify-cors";
 
 const server = async () => {
 	if (process.env.NODE_ENV !== "production") {
@@ -15,11 +14,13 @@ const server = async () => {
 		logger: true,
 	});
 
+	fastify.register(fastifyCors);
+
 	await connect();
 
 	setV1Controller(fastify);
 
-	fastify.listen(PORT, err => {
+	fastify.listen(process.env.PORT!, process.env.HOST!, err => {
 		if (err) throw err;
 	});
 };
