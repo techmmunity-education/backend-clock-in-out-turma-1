@@ -1,4 +1,4 @@
-import { Column, Entity, ObjectIdColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ObjectIdColumn } from "typeorm";
 import { ObjectId } from "mongodb";
 
 @Entity()
@@ -14,6 +14,6 @@ export class CompanyEntity {
 	@Column()
 	public name: string;
 
-	@Column()
+	@CreateDateColumn()
 	public createdAt: Date;
 }
