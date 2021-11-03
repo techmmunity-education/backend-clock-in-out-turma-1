@@ -19,7 +19,7 @@ export class EmployeeEntity {
 	public role: RoleTypeEnum;
 
 	@Column()
-	public salary: number;
+	public salary?: number;
 
 	@Column({
 		default: true,
@@ -27,5 +27,5 @@ export class EmployeeEntity {
 	public isValid: boolean;
 
 	@Column()
-	public firedAt: Date;
+	public firedAt?: Date;
 }
