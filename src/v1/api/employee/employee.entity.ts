@@ -19,7 +19,11 @@ export class EmployeeEntity {
 	public role: RoleTypeEnum;
 
 	@Column()
+<<<<<<< HEAD
 	public salary?: number;
+=======
+	public salary: number;
+>>>>>>> 00356f1 (:sparkles: Add employe entity)
 
 	@Column({
 		default: true,
@@ -27,5 +31,9 @@ export class EmployeeEntity {
 	public isValid: boolean;
 
 	@Column()
+<<<<<<< HEAD
 	public firedAt?: Date;
+=======
+	public firedAt: Date;
+>>>>>>> 00356f1 (:sparkles: Add employe entity)
 }
