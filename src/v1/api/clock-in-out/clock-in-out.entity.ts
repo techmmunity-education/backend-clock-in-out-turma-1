@@ -2,7 +2,7 @@ import { Column, Entity, ObjectIdColumn } from "typeorm";
 import { ObjectId } from "mongodb";
 import { ClockInOutTypeEnum } from "v1/enum/clock-in-out-type";
 
-@Entity()
+@Entity("clocks_in_out")
 export class ClockInOutEntity {
 	@ObjectIdColumn({
 		name: "_id",
@@ -18,11 +18,14 @@ export class ClockInOutEntity {
 	@Column()
 	public createdAt: Date;
 
-	@Column()
+	@Column({
+		type: "enum",
+		enum: ClockInOutTypeEnum,
+	})
 	public type: ClockInOutTypeEnum;
 
 	@Column()
-	public justified: boolean;
+	public isJustified: boolean;
 
 	@Column()
 	public reason: string;
