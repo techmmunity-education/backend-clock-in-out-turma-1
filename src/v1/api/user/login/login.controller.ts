@@ -1,21 +1,21 @@
 import { getRepository } from "typeorm";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { Route } from "types/route";
-import { ExampleEntity } from "../example.entity";
-import { exampleGet } from "./example-get.service";
-import { validation } from "./example-get.validation";
+import { UserEntity } from "../user.entity";
+import { login } from "./login.service";
+import { validation } from "./login.validation";
 
-export const exampleGetController: Route = async (request, reply) => {
+export const loginController: Route = async (request, reply) => {
 	let result;
 
 	try {
-		const validatedParams = await validation(request.query as any);
+		const validatedParams = await validation(request.body as any);
 
-		const exampleRepository = getRepository(ExampleEntity);
+		const userRepository = getRepository(UserEntity);
 
-		result = await exampleGet(
+		result = await login(
 			{
-				exampleRepository,
+				userRepository,
 			},
 			validatedParams,
 		);

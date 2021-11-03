@@ -3,7 +3,7 @@ import { doc } from "./doc";
 
 const repository = makeMockRepository();
 
-export const exampleMock = {
+export const userDataMock = {
 	doc,
 	repository,
 };
