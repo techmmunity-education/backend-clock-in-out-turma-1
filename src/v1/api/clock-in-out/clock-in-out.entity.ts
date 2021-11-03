@@ -25,8 +25,8 @@ export class ClockInOutEntity {
 	public type: ClockInOutTypeEnum;
 
 	@Column()
-	public isJustified: boolean;
+	public isJustified?: boolean;
 
 	@Column()
-	public reason: string;
+	public reason?: string;
 }
