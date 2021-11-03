@@ -1,5 +1,5 @@
 export enum RoleTypeEnum {
 	COMPANY = "COMPANY",
-	RH = "RH",
-	EMPLOYEE = "EMPOLYEE",
+	HUMAN_RESOURCES = "HUMAN RESOURCES",
+	EMPLOYEE = "EMPLOYEE",
 }
