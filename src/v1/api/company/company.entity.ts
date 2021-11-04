@@ -1,5 +1,12 @@
-import { Column, CreateDateColumn, Entity, ObjectIdColumn } from "typeorm";
+import {
+	Column,
+	CreateDateColumn,
+	Entity,
+	ObjectIdColumn,
+	Repository,
+} from "typeorm";
 import { ObjectId } from "mongodb";
+import { RepositoryKeys } from "v1/tests/mocks/repository";
 
 @Entity("companies")
 export class CompanyEntity {
@@ -17,3 +24,5 @@ export class CompanyEntity {
 	@CreateDateColumn()
 	public createdAt: Date;
 }
+
+export type CompanyRepository = Pick<Repository<CompanyEntity>, RepositoryKeys>;

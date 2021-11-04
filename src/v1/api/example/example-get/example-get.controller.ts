@@ -1,6 +1,6 @@
 import { getRepository } from "typeorm";
 import { StatusCodeEnum } from "v1/enum/status-code";
-import { Route } from "v1/types/route";
+import { Route } from "types/route";
 import { ExampleEntity } from "../example.entity";
 import { exampleGet } from "./example-get.service";
 import { validation } from "./example-get.validation";
