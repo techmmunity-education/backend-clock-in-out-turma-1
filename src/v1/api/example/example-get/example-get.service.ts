@@ -1,6 +1,6 @@
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { CustomError } from "v1/utils/error";
-import { ExampleEntity, ExampleRepository } from "../example.entity";
+import { ExampleRepository } from "../example.entity";
 
 interface Injectables {
 	exampleRepository: ExampleRepository;
