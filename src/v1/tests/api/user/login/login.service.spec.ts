@@ -1,18 +1,23 @@
-import { userDataMock } from "v1/tests/mocks/user";
-import { login } from "v1/api/user/login/login.service";
+import { employeeMock } from "v1/tests/mocks/employee";
+import { login } from "v1/api/employee/login/login.service";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { CustomError } from "v1/utils/error";
 import { sign } from "v1/utils/jwt/sign";
+import { RoleTypeEnum } from "v1/enum/role-types";
 
 describe("login service", () => {
-	const validEmail = "teste@teste.com";
+	const validCnpj = "12345682412";
+	const validRole = RoleTypeEnum.EMPLOYEE;
+	const validCpf = "85414896347";
 	const validPassword = "5564848";
 
 	let userDataMockDoc: any;
 
 	beforeAll(async () => {
-		userDataMockDoc = await userDataMock.doc({
-			email: validEmail,
+		userDataMockDoc = await employeeMock.doc({
+			cpf: validCpf,
+			role: validRole,
+			cnpj: validCnpj,
 			password: validPassword,
 		});
 	});
@@ -21,15 +26,16 @@ describe("login service", () => {
 		it("should return an authCode if the params are correct", async () => {
 			let result: any;
 
-			userDataMock.repository.findOne.mockResolvedValue(userDataMockDoc);
+			employeeMock.repository.findOne.mockResolvedValue(userDataMockDoc);
 
 			try {
 				result = await login(
 					{
-						userRepository: userDataMock.repository,
+						employeeRepository: employeeMock.repository,
 					},
 					{
-						email: validEmail,
+						cnpj: validCnpj,
+						cpf: validCpf,
 						password: validPassword,
 					},
 				);
@@ -44,16 +50,17 @@ describe("login service", () => {
 	});
 
 	describe("Invalid Params", () => {
-		it("should throw a CustomError with a generic error message as a result of email validation", async () => {
+		it("should throw a CustomError with a generic error message as a result of cnpj validation", async () => {
 			let result: any;
 
 			try {
 				result = await login(
 					{
-						userRepository: userDataMock.repository,
+						employeeRepository: employeeMock.repository,
 					},
 					{
-						email: "testeste.com",
+						cnpj: "testeste.com",
+						cpf: validCpf,
 						password: validPassword,
 					},
 				);
@@ -69,13 +76,14 @@ describe("login service", () => {
 		it("should throw a CustomError with a generic error message as a result of password validation", async () => {
 			let result: any;
 
-			userDataMock.repository.findOne.mockResolvedValue(userDataMockDoc);
+			employeeMock.repository.findOne.mockResolvedValue(userDataMockDoc);
 
 			try {
 				result = await login(
-					{ userRepository: userDataMock.repository },
+					{ employeeRepository: employeeMock.repository },
 					{
-						email: validEmail,
+						cnpj: validCnpj,
+						cpf: validCpf,
 						password: "848978989",
 					},
 				);

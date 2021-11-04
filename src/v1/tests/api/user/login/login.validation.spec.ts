@@ -1,10 +1,11 @@
-import { LoginParams } from "v1/api/user/login/login.service";
-import { validation } from "v1/api/user/login/login.validation";
+import { LoginParams } from "v1/api/employee/login/login.service";
+import { validation } from "v1/api/employee/login/login.validation";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { CustomError } from "v1/utils/error";
 
 describe("Login validation", () => {
-	const validEmail = "teste@teste.com";
+	const validCnpj = "123.456.824-12";
+	const validCpf = "854.148.963-47";
 	const validPassword = "5648G94SAG8965";
 
 	describe("Successful", () => {
@@ -13,7 +14,8 @@ describe("Login validation", () => {
 
 			try {
 				result = await validation({
-					email: validEmail,
+					cnpj: validCnpj,
+					cpf: validCpf,
 					password: validPassword,
 				});
 			} catch (err: any) {
@@ -21,37 +23,20 @@ describe("Login validation", () => {
 			}
 
 			expect(result).toStrictEqual({
-				email: validEmail,
+				cnpj: validCnpj,
+				cpf: validCpf,
 				password: validPassword,
 			});
 		});
 	});
 
-	describe("Invalid Params", () => {
-		it("should return a CustomError with a Invalid email message", async () => {
-			let result: any;
-
-			try {
-				result = await validation({
-					email: "a8r7a8r0ah",
-					password: validPassword,
-				});
-			} catch (err: any) {
-				result = err;
-			}
-
-			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("email must be a valid email");
-			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
-		});
-	});
-
 	describe("Undefined params", () => {
-		it("should throw a CustomError with a undefined email param message", async () => {
+		it("should throw a CustomError with a undefined cnpj param message", async () => {
 			let result: any;
 
 			try {
 				result = await validation({
+					cpf: validCpf,
 					password: validPassword,
 				} as LoginParams);
 			} catch (err: any) {
@@ -59,7 +44,24 @@ describe("Login validation", () => {
 			}
 
 			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("email is a required field");
+			expect(result.message).toBe("cnpj is a required field");
+			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
+		});
+
+		it("should throw a CustomError with a undefined cpf param message", async () => {
+			let result: any;
+
+			try {
+				result = await validation({
+					cnpj: validCnpj,
+					password: validPassword,
+				} as LoginParams);
+			} catch (err: any) {
+				result = err;
+			}
+
+			expect(result instanceof CustomError).toBeTruthy();
+			expect(result.message).toBe("cpf is a required field");
 			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
 		});
 
@@ -68,7 +70,8 @@ describe("Login validation", () => {
 
 			try {
 				result = await validation({
-					email: validEmail,
+					cnpj: validCnpj,
+					cpf: validCpf,
 				} as LoginParams);
 			} catch (err: any) {
 				result = err;
@@ -81,12 +84,13 @@ describe("Login validation", () => {
 	});
 
 	describe("Invalid type", () => {
-		it("should return a CustomError with a invalid email type message", async () => {
+		it("should return a CustomError with a invalid cnpj type message", async () => {
 			let result: any;
 
 			try {
 				result = await validation({
-					email: 42 as any,
+					cnpj: 42 as any,
+					cpf: validCpf,
 					password: validPassword,
 				});
 			} catch (err: any) {
@@ -95,7 +99,27 @@ describe("Login validation", () => {
 
 			expect(result instanceof CustomError).toBeTruthy();
 			expect(result.message).toBe(
-				"email must be a `string` type, but the final value was: `42`.",
+				"cnpj must be a `string` type, but the final value was: `42`.",
+			);
+			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
+		});
+
+		it("should return a CustomError with a invalid cpf type message", async () => {
+			let result: any;
+
+			try {
+				result = await validation({
+					cnpj: validCnpj,
+					cpf: 54854 as any,
+					password: validPassword,
+				});
+			} catch (err: any) {
+				result = err;
+			}
+
+			expect(result instanceof CustomError).toBeTruthy();
+			expect(result.message).toBe(
+				"cpf must be a `string` type, but the final value was: `54854`.",
 			);
 			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
 		});
@@ -105,7 +129,8 @@ describe("Login validation", () => {
 
 			try {
 				result = await validation({
-					email: validEmail,
+					cnpj: validCnpj,
+					cpf: validCpf,
 					password: 1565456 as any,
 				});
 			} catch (err: any) {

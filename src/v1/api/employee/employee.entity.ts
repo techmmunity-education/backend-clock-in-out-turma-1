@@ -17,6 +17,9 @@ export class EmployeeEntity {
 	public cpf: string;
 
 	@Column()
+	public cnpj: string;
+
+	@Column()
 	public password: string;
 
 	@Column()

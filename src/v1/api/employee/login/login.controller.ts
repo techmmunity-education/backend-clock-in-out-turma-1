@@ -1,7 +1,7 @@
 import { getRepository } from "typeorm";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { Route } from "types/route";
-import { UserEntity } from "../user.entity";
+import { EmployeeEntity } from "../employee.entity";
 import { login } from "./login.service";
 import { validation } from "./login.validation";
 
@@ -11,11 +11,11 @@ export const loginController: Route = async (request, reply) => {
 	try {
 		const validatedParams = await validation(request.body as any);
 
-		const userRepository = getRepository(UserEntity);
+		const employeeRepository = getRepository(EmployeeEntity);
 
 		result = await login(
 			{
-				userRepository,
+				employeeRepository,
 			},
 			validatedParams,
 		);

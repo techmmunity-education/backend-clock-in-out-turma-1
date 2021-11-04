@@ -23,17 +23,6 @@
 		"tsconfig-paths": "^3.11.0",
 		"typescript": "^4.4.4"
 	},
-	"scripts": {
-		"prepare": "husky install",
-		"husky:pre-commit": "tsc && lint-staged",
-		"dev": "ts-node-dev -r tsconfig-paths/register src/index.ts",
-		"test": "jest",
-		"test:cov": "jest --coverage",
-		"format": "eslint . --fix --quiet",
-		"lint": "eslint . --quiet",
-		"build": "ncc build src/index.ts -o dist -m -s",
-		"start": "node index.ts"
-	},
 	"dependencies": {
 		"@techmmunity/utils": "^1.6.0",
 		"bcrypt": "^5.0.1",
@@ -45,5 +34,16 @@
 		"reflect-metadata": "^0.1.13",
 		"typeorm": "^0.2.38",
 		"yup": "^0.32.11"
+	},
+	"scripts": {
+		"prepare": "husky install",
+		"husky:pre-commit": "tsc && lint-staged",
+		"dev": "ts-node-dev -r tsconfig-paths/register src/index.ts",
+		"test": "jest",
+		"test:cov": "jest --coverage",
+		"format": "eslint . --fix --quiet",
+		"lint": "eslint . --quiet",
+		"build": "ncc build src/index.ts -o dist -m -s",
+		"start": "node index.ts"
 	}
 }
