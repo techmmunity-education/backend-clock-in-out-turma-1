@@ -27,7 +27,7 @@ describe("register service", () => {
 				cnpj: validCnpj,
 				cpf: validCpf,
 				password: validPassword,
-				role: RoleTypeEnum.COMPANY,
+				role: RoleTypeEnum.MANAGER,
 				isValid: true,
 			});
 

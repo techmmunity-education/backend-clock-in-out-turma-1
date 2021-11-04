@@ -5,6 +5,7 @@ export const sign = (employeeData: EmployeeEntity) =>
 	signJwt(
 		{
 			employeeId: employeeData.id.toString(),
+			employeeRole: employeeData.role,
 		},
 		process.env.JWT_PRIVATE_KEY as string,
 	);

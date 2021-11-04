@@ -9,7 +9,7 @@ export interface CreateDoc {
 	password: string;
 	role: RoleTypeEnum;
 	salary?: number;
-	isValid: boolean;
+	isValid?: boolean;
 	firedAt?: Date;
 }
 
@@ -23,12 +23,12 @@ export const doc = async ({
 	isValid,
 	firedAt,
 }: CreateDoc) => ({
-	id: new ObjectId(id),
+	id: new ObjectId(id || "6183e2159fcaab3657ae4380"),
+	password: await encrypt(password),
+	isValid: isValid ?? true,
 	cnpj,
 	cpf,
-	password: await encrypt(password),
 	role,
 	salary,
-	isValid,
 	firedAt,
 });

@@ -11,6 +11,9 @@ export class EmployeeEntity {
 	public id: ObjectId;
 
 	@Column()
+	public cnpj: string;
+
+	@Column()
 	public cpf: string;
 
 	@Column()

@@ -26,7 +26,7 @@ export const register = async (
 	if (
 		await hasCompanyWithSameCnpj({
 			companyRepository,
-			cnpj: params.cnpj as string,
+			cnpj: params.cnpj,
 		})
 	) {
 		throw new CustomError(
@@ -46,7 +46,7 @@ export const register = async (
 		cnpj: params.cnpj,
 		cpf: params.cpf,
 		password: await encrypt(params.password),
-		role: RoleTypeEnum.COMPANY,
+		role: RoleTypeEnum.MANAGER,
 	};
 
 	const employeeData = await employeeRepository.save(employeeParams);

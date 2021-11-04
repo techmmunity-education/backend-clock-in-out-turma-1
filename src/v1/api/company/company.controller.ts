@@ -11,5 +11,5 @@ export const setCompanyController = (
 	apiVersion: string,
 ) =>
 	fastify.register(companyController, {
-		prefix: `/${apiVersion}`,
+		prefix: `/${apiVersion}/company`,
 	});
