@@ -11,10 +11,10 @@ describe("login service", () => {
 	const validCpf = "85414896347";
 	const validPassword = "5564848";
 
-	let userDataMockDoc: any;
+	let employeeDataMockDoc: any;
 
 	beforeAll(async () => {
-		userDataMockDoc = await employeeMock.doc({
+		employeeDataMockDoc = await employeeMock.doc({
 			cpf: validCpf,
 			role: validRole,
 			cnpj: validCnpj,
@@ -26,7 +26,7 @@ describe("login service", () => {
 		it("should return an authCode if the params are correct", async () => {
 			let result: any;
 
-			employeeMock.repository.findOne.mockResolvedValue(userDataMockDoc);
+			employeeMock.repository.findOne.mockResolvedValue(employeeDataMockDoc);
 
 			try {
 				result = await login(
@@ -44,7 +44,7 @@ describe("login service", () => {
 			}
 
 			expect(result).toStrictEqual({
-				authCode: sign(userDataMockDoc),
+				authCode: sign(employeeDataMockDoc),
 			});
 		});
 	});
@@ -76,7 +76,7 @@ describe("login service", () => {
 		it("should throw a CustomError with a generic error message as a result of password validation", async () => {
 			let result: any;
 
-			employeeMock.repository.findOne.mockResolvedValue(userDataMockDoc);
+			employeeMock.repository.findOne.mockResolvedValue(employeeDataMockDoc);
 
 			try {
 				result = await login(
