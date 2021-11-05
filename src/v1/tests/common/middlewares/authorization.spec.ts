@@ -73,9 +73,10 @@ describe("Authorization middleware", () => {
 	});
 
 	describe("Failure", () => {
+		const send = jest.fn();
+
 		it("should return a error with a authorization missing message", () => {
 			let result: any;
-			const send = jest.fn();
 
 			const reply = {
 				status: jest.fn().mockReturnValue({ send }),
@@ -111,7 +112,6 @@ describe("Authorization middleware", () => {
 
 		it("should return a error with a invalid token pattern message", () => {
 			let result: any;
-			const send = jest.fn();
 
 			const reply = {
 				status: jest.fn().mockReturnValue({ send }),
@@ -147,7 +147,6 @@ describe("Authorization middleware", () => {
 
 		it("should return a error with a invalid token message", () => {
 			let result: any;
-			const send = jest.fn();
 
 			const reply = {
 				status: jest.fn().mockReturnValue({ send }),
@@ -190,8 +189,6 @@ describe("Authorization middleware", () => {
 				role: RoleTypeEnum.EMPLOYEE,
 			});
 			const token = sign(employee);
-
-			const send = jest.fn();
 
 			const reply = {
 				status: jest.fn().mockReturnValue({ send }),

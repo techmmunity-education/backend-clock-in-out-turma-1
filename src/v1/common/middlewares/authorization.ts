@@ -14,11 +14,9 @@ export const authorizationMiddleware =
 		const { authorization } = request.headers;
 
 		if (!authorization) {
-			const x = reply
+			return reply
 				.status(StatusCodeEnum.FORBIDDEN)
 				.send({ error: "authorization is a required header" });
-
-			return x;
 		}
 
 		if (!authorization.startsWith("Bearer ")) {
