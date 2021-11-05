@@ -8,12 +8,18 @@ import { RoleTypeEnum } from "v1/enum/role-types";
 import { employeeMock } from "v1/tests/mocks/employee";
 
 describe("Authorization middleware", () => {
+	let result: any;
 	const done = jest.fn();
+
+	const trueAuthorizationMiddleware = authorizationMiddleware([
+		RoleTypeEnum.MANAGER,
+	]);
+	const authorizationMiddlewareWithContext = trueAuthorizationMiddleware.bind(
+		{} as any,
+	);
 
 	describe("setAuthorization middleware", () => {
 		it("should define onRequest hook", () => {
-			let result: any;
-
 			const fastify = {
 				addHook: jest.fn(),
 			};
@@ -35,7 +41,6 @@ describe("Authorization middleware", () => {
 
 	describe("Successful", () => {
 		it("shouldn't return any error", async () => {
-			let result: any;
 			const employee = await employeeMock.doc({
 				cnpj: "39.407.242/0001-30",
 				cpf: "867.020.740-00",
@@ -51,12 +56,6 @@ describe("Authorization middleware", () => {
 			};
 
 			try {
-				const trueAuthorizationMiddleware = authorizationMiddleware([
-					RoleTypeEnum.MANAGER,
-				]);
-				const authorizationMiddlewareWithContext =
-					trueAuthorizationMiddleware.bind({} as any);
-
 				result = authorizationMiddlewareWithContext(
 					request as any,
 					reply as any,
@@ -74,24 +73,20 @@ describe("Authorization middleware", () => {
 
 	describe("Failure", () => {
 		const send = jest.fn();
+		const reply = {
+			status: jest.fn().mockReturnValue({ send }),
+		};
+
+		beforeEach(() => {
+			reply.status.mockReturnValue({ send });
+		});
 
 		it("should return a error with a authorization missing message", () => {
-			let result: any;
-
-			const reply = {
-				status: jest.fn().mockReturnValue({ send }),
-			};
 			const request = {
 				headers: {},
 			};
 
 			try {
-				const trueAuthorizationMiddleware = authorizationMiddleware([
-					RoleTypeEnum.MANAGER,
-				]);
-				const authorizationMiddlewareWithContext =
-					trueAuthorizationMiddleware.bind({} as any);
-
 				result = authorizationMiddlewareWithContext(
 					request as any,
 					reply as any,
@@ -111,22 +106,11 @@ describe("Authorization middleware", () => {
 		});
 
 		it("should return a error with a invalid token pattern message", () => {
-			let result: any;
-
-			const reply = {
-				status: jest.fn().mockReturnValue({ send }),
-			};
 			const request = {
 				headers: { authorization: "testinvalidtokenpattern" },
 			};
 
 			try {
-				const trueAuthorizationMiddleware = authorizationMiddleware([
-					RoleTypeEnum.MANAGER,
-				]);
-				const authorizationMiddlewareWithContext =
-					trueAuthorizationMiddleware.bind({} as any);
-
 				result = authorizationMiddlewareWithContext(
 					request as any,
 					reply as any,
@@ -146,22 +130,11 @@ describe("Authorization middleware", () => {
 		});
 
 		it("should return a error with a invalid token message", () => {
-			let result: any;
-
-			const reply = {
-				status: jest.fn().mockReturnValue({ send }),
-			};
 			const request = {
 				headers: { authorization: "Bearer testinvalidtoken" },
 			};
 
 			try {
-				const trueAuthorizationMiddleware = authorizationMiddleware([
-					RoleTypeEnum.MANAGER,
-				]);
-				const authorizationMiddlewareWithContext =
-					trueAuthorizationMiddleware.bind({} as any);
-
 				result = authorizationMiddlewareWithContext(
 					request as any,
 					reply as any,
@@ -181,7 +154,6 @@ describe("Authorization middleware", () => {
 		});
 
 		it("should return a error with a access denied message", async () => {
-			let result: any;
 			const employee = await employeeMock.doc({
 				cnpj: "39.407.242/0001-30",
 				cpf: "867.020.740-00",
@@ -190,20 +162,11 @@ describe("Authorization middleware", () => {
 			});
 			const token = sign(employee);
 
-			const reply = {
-				status: jest.fn().mockReturnValue({ send }),
-			};
 			const request = {
 				headers: { authorization: `Bearer ${token}` },
 			};
 
 			try {
-				const trueAuthorizationMiddleware = authorizationMiddleware([
-					RoleTypeEnum.MANAGER,
-				]);
-				const authorizationMiddlewareWithContext =
-					trueAuthorizationMiddleware.bind({} as any);
-
 				result = authorizationMiddlewareWithContext(
 					request as any,
 					reply as any,
