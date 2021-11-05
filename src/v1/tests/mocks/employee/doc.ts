@@ -23,7 +23,7 @@ export const doc = async ({
 	isValid,
 	firedAt,
 }: CreateDoc) => ({
-	id: new ObjectId(id || "6183e2159fcaab3657ae4380"),
+	id: new ObjectId(id),
 	password: await encrypt(password),
 	isValid: isValid ?? true,
 	cnpj,
