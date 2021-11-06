@@ -3,7 +3,7 @@ import { loginController } from "./login/login.controller";
 
 // eslint-disable-next-line require-await
 const employeeController: FastifyPluginAsync = async fastifyInstancePlugin => {
-	fastifyInstancePlugin.get("/login", loginController);
+	fastifyInstancePlugin.post("/login", loginController);
 };
 
 export const setEmployeeController = (
