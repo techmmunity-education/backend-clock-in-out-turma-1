@@ -14,6 +14,8 @@ module.exports = {
 		"!v*/enum/*.ts",
 		"!index.ts",
 		"!v*/v*.controller.ts",
+		"!v*/utils/encrypt/compare.ts",
+		"!v*/utils/jwt/verify.ts",
 	],
 	setupFiles: ["./v1/tests/setup.ts"],
 	coverageDirectory: "../coverage",

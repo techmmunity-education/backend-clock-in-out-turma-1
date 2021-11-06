@@ -16,7 +16,8 @@
 		"sourceMap": true,
 		"incremental": true,
 		"types": ["node", "jest"],
-		"baseUrl": "src"
+		"baseUrl": "src",
+		"skipLibCheck": true
 	},
 	"include": ["src/**/*.ts", "jest.config.js"]
 }
