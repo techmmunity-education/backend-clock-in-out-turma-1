@@ -3,3 +3,7 @@ export enum RoleTypeEnum {
 	HUMAN_RESOURCES = "HUMAN RESOURCES",
 	EMPLOYEE = "EMPLOYEE",
 }
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const RoleTypeValues = () =>
+	[...new Set(Object.values(RoleTypeEnum))] as Array<RoleTypeEnum>;

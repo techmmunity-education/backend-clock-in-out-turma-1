@@ -4,3 +4,7 @@ export enum ClockInOutTypeEnum {
 	PAUSE_IN = "PAUSE IN",
 	CLOCK_OUT = "CLOCK OUT",
 }
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const ClockInOutTypeValues = () =>
+	[...new Set(Object.values(ClockInOutTypeEnum))] as Array<ClockInOutTypeEnum>;

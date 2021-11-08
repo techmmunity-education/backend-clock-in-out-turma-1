@@ -1,6 +1,7 @@
-import { Column, Entity, ObjectIdColumn } from "typeorm";
+import { Column, Entity, ObjectIdColumn, Repository } from "typeorm";
 import { ObjectId } from "mongodb";
 import { ClockInOutTypeEnum } from "v1/enum/clock-in-out-type";
+import { RepositoryKeys } from "v1/tests/mocks/repository";
 
 @Entity("clocks_in_out")
 export class ClockInOutEntity {
@@ -30,3 +31,8 @@ export class ClockInOutEntity {
 	@Column()
 	public reason?: string;
 }
+
+export type ClockInOutRepository = Pick<
+	Repository<ClockInOutEntity>,
+	RepositoryKeys
+>;
