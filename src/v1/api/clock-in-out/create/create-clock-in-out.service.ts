@@ -20,12 +20,12 @@ export interface ClockInOutParams {
 
 export const createClockInOut = async (
 	{ clockInOutRepository }: Injectables,
-	params: ClockInOutParams,
+	{ cnpj, cpf, createdAt, type, isJustified, reason, role }: ClockInOutParams,
 ) => {
-	const hasJustified = params.isJustified !== undefined;
-	const hasReason = params.reason !== undefined;
-	const canSetDate = params.createdAt !== undefined;
-	const isEmployee = params.role === RoleTypeEnum.EMPLOYEE;
+	const hasJustified = isJustified !== undefined;
+	const hasReason = reason !== undefined;
+	const canSetDate = createdAt !== undefined;
+	const isEmployee = role === RoleTypeEnum.EMPLOYEE;
 
 	if ((hasJustified || hasReason || canSetDate) && isEmployee) {
 		throw new CustomError("Unauthorized", StatusCodeEnum.UNAUTHORIZED);
@@ -35,19 +35,19 @@ export const createClockInOut = async (
 
 	if (isEmployee) {
 		clockInOutData = {
-			companyId: params.cnpj,
-			userId: params.cpf,
+			companyId: cnpj,
+			userId: cpf,
 			createdAt: new Date(),
-			type: params.type,
+			type,
 		};
 	} else {
 		clockInOutData = {
-			companyId: params.cnpj,
-			userId: params.cpf,
-			createdAt: params.createdAt,
-			type: params.type,
-			isJustified: params.isJustified,
-			reason: params.reason,
+			companyId: cnpj,
+			userId: cpf,
+			createdAt,
+			type,
+			isJustified,
+			reason,
 		};
 	}
 

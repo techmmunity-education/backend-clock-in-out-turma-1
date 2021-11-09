@@ -2,13 +2,13 @@ import { getRepository } from "typeorm";
 import { Route } from "types/route";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { getUserData } from "v1/utils/jwt/get-user-data";
-import { tokenManipulation } from "v1/utils/jwt/token-manipulation";
+import { getToken } from "v1/utils/jwt/get-token";
 import { ClockInOutEntity } from "../clock-in-out.entity";
 import { validation } from "./create-clock-in-out-validation";
 import { createClockInOut } from "./create-clock-in-out.service";
 
 export const createClockInOutController: Route = async (request, reply) => {
-	const token = tokenManipulation(request);
+	const token = getToken(request);
 	const { employeeCnpj, employeeCpf, employeeRole } = getUserData(token);
 
 	const params = {
@@ -30,5 +30,5 @@ export const createClockInOutController: Route = async (request, reply) => {
 			.send({ error: err.message });
 	}
 
-	reply.status(StatusCodeEnum.CREATED).send();
+	return reply.status(StatusCodeEnum.CREATED).send();
 };

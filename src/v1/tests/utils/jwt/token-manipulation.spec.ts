@@ -1,7 +1,7 @@
 import { RoleTypeEnum } from "v1/enum/role-types";
 import { employeeMock } from "v1/tests/mocks/employee";
 import { sign } from "v1/utils/jwt/sign";
-import { tokenManipulation } from "v1/utils/jwt/token-manipulation";
+import { getToken } from "v1/utils/jwt/get-token";
 
 describe("token-manipulation util", () => {
 	it("should return a formatted token", async () => {
@@ -21,7 +21,7 @@ describe("token-manipulation util", () => {
 			},
 		};
 
-		const result = tokenManipulation(request as any);
+		const result = getToken(request as any);
 
 		expect(result).toStrictEqual(token);
 	});
