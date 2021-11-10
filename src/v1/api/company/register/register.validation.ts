@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { CustomError } from "v1/utils/error";
 import * as yup from "yup";
@@ -6,8 +7,8 @@ import { RegisterParams } from "./register.service";
 const schema = yup.object().shape({
 	cnpj: yup.string().strict().required(),
 	cpf: yup.string().strict().required(),
-	// eslint-disable-next-line @typescript-eslint/no-magic-numbers
-	name: yup.string().strict().required().min(3).max(1000),
+	companyName: yup.string().strict().required().min(3).max(1000),
+	employeeName: yup.string().strict().required().min(3).max(1000),
 	password: yup.string().strict().required(),
 });
 

@@ -7,20 +7,20 @@ import { RoleTypeEnum } from "v1/enum/role-types";
 
 describe("login service", () => {
 	const validCnpj = "12345682412";
+	const validName = "João Ninguém";
 	const validRole = RoleTypeEnum.EMPLOYEE;
 	const validCpf = "85414896347";
 	const validPassword = "5564848";
-	const validName = "test name";
 
 	let employeeDataMockDoc: any;
 
 	beforeAll(async () => {
 		employeeDataMockDoc = await employeeMock.doc({
 			cpf: validCpf,
+			name: validName,
 			role: validRole,
 			cnpj: validCnpj,
 			password: validPassword,
-			name: validName,
 		});
 	});
 

@@ -6,7 +6,8 @@ import { CustomError } from "v1/utils/error";
 describe("register validation", () => {
 	const validCnpj = "39.407.242/0001-30";
 	const validCpf = "867.020.740-00";
-	const validName = "KekTestCompany";
+	const validCompanyName = "KekTestCompany";
+	const validEmployeeName = "KekTestEmployee";
 	const validPassword = "fa98s7fa6";
 
 	describe("Successful", () => {
@@ -17,7 +18,8 @@ describe("register validation", () => {
 				result = await validation({
 					cnpj: validCnpj,
 					cpf: validCpf,
-					name: validName,
+					companyName: validCompanyName,
+					employeeName: validEmployeeName,
 					password: validPassword,
 				});
 			} catch (err: any) {
@@ -27,21 +29,23 @@ describe("register validation", () => {
 			expect(result).toStrictEqual({
 				cnpj: validCnpj,
 				cpf: validCpf,
-				name: validName,
+				companyName: validCompanyName,
+				employeeName: validEmployeeName,
 				password: validPassword,
 			});
 		});
 	});
 
 	describe("Invalid params", () => {
-		it("should throw a CustomError with a invalid, too short, name param message", async () => {
+		it("should throw a CustomError with a invalid, too short, company name param message", async () => {
 			let result: any;
 
 			try {
 				result = await validation({
 					cnpj: validCnpj,
 					cpf: validCpf,
-					name: "a",
+					companyName: "a",
+					employeeName: validEmployeeName,
 					password: validPassword,
 				});
 			} catch (err: any) {
@@ -49,7 +53,27 @@ describe("register validation", () => {
 			}
 
 			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("name must be at least 3 characters");
+			expect(result.message).toBe("companyName must be at least 3 characters");
+			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
+		});
+
+		it("should throw a CustomError with a invalid, too short, employee name param message", async () => {
+			let result: any;
+
+			try {
+				result = await validation({
+					cnpj: validCnpj,
+					cpf: validCpf,
+					companyName: validCompanyName,
+					employeeName: "a",
+					password: validPassword,
+				});
+			} catch (err: any) {
+				result = err;
+			}
+
+			expect(result instanceof CustomError).toBeTruthy();
+			expect(result.message).toBe("employeeName must be at least 3 characters");
 			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
 		});
 
@@ -60,7 +84,8 @@ describe("register validation", () => {
 				result = await validation({
 					cnpj: validCnpj,
 					cpf: validCpf,
-					name: "a".repeat(1001),
+					companyName: "a".repeat(1001),
+					employeeName: validEmployeeName,
 					password: validPassword,
 				});
 			} catch (err: any) {
@@ -68,18 +93,41 @@ describe("register validation", () => {
 			}
 
 			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("name must be at most 1000 characters");
+			expect(result.message).toBe(
+				"companyName must be at most 1000 characters",
+			);
 			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
 		});
 	});
 
+	it("should throw a CustomError with a invalid, too long, name param message", async () => {
+		let result: any;
+
+		try {
+			result = await validation({
+				cnpj: validCnpj,
+				cpf: validCpf,
+				companyName: validCompanyName,
+				employeeName: "a".repeat(1001),
+				password: validPassword,
+			});
+		} catch (err: any) {
+			result = err;
+		}
+
+		expect(result instanceof CustomError).toBeTruthy();
+		expect(result.message).toBe("employeeName must be at most 1000 characters");
+		expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
+	});
+
 	describe("Undefined params", () => {
-		it("should throw a CustomError with a undefined name param message", async () => {
+		it("should throw a CustomError with a undefined companyName param message", async () => {
 			let result: any;
 
 			try {
 				result = await validation({
 					cnpj: validCnpj,
+					employeeName: validEmployeeName,
 					cpf: validCpf,
 					password: validPassword,
 				} as RegisterParams);
@@ -88,7 +136,26 @@ describe("register validation", () => {
 			}
 
 			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("name is a required field");
+			expect(result.message).toBe("companyName is a required field");
+			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
+		});
+
+		it("should throw a CustomError with a undefined employeeName param message", async () => {
+			let result: any;
+
+			try {
+				result = await validation({
+					cnpj: validCnpj,
+					companyName: validCompanyName,
+					cpf: validCpf,
+					password: validPassword,
+				} as RegisterParams);
+			} catch (err: any) {
+				result = err;
+			}
+
+			expect(result instanceof CustomError).toBeTruthy();
+			expect(result.message).toBe("employeeName is a required field");
 			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
 		});
 
@@ -98,7 +165,8 @@ describe("register validation", () => {
 			try {
 				result = await validation({
 					cpf: validCpf,
-					name: validName,
+					companyName: validCompanyName,
+					employeeName: validEmployeeName,
 					password: validPassword,
 				} as RegisterParams);
 			} catch (err: any) {
@@ -116,7 +184,8 @@ describe("register validation", () => {
 			try {
 				result = await validation({
 					cnpj: validCnpj,
-					name: validName,
+					companyName: validCompanyName,
+					employeeName: validEmployeeName,
 					password: validPassword,
 				} as RegisterParams);
 			} catch (err: any) {
@@ -135,7 +204,8 @@ describe("register validation", () => {
 				result = await validation({
 					cnpj: validCnpj,
 					cpf: validCpf,
-					name: validName,
+					companyName: validCompanyName,
+					employeeName: validEmployeeName,
 				} as RegisterParams);
 			} catch (err: any) {
 				result = err;
@@ -155,7 +225,8 @@ describe("register validation", () => {
 				result = await validation({
 					cnpj: 42 as any,
 					cpf: validCpf,
-					name: validName,
+					companyName: validCompanyName,
+					employeeName: validEmployeeName,
 					password: validPassword,
 				});
 			} catch (err: any) {
@@ -176,7 +247,8 @@ describe("register validation", () => {
 				result = await validation({
 					cnpj: validCnpj,
 					cpf: 42 as any,
-					name: validName,
+					companyName: validCompanyName,
+					employeeName: validEmployeeName,
 					password: validPassword,
 				});
 			} catch (err: any) {
@@ -190,14 +262,15 @@ describe("register validation", () => {
 			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
 		});
 
-		it("should return a CustomError with a invalid name type message", async () => {
+		it("should return a CustomError with a invalid companyName type message", async () => {
 			let result: any;
 
 			try {
 				result = await validation({
 					cnpj: validCnpj,
 					cpf: validCpf,
-					name: 42 as any,
+					companyName: 42 as any,
+					employeeName: validEmployeeName,
 					password: validPassword,
 				});
 			} catch (err: any) {
@@ -206,7 +279,29 @@ describe("register validation", () => {
 
 			expect(result instanceof CustomError).toBeTruthy();
 			expect(result.message).toBe(
-				"name must be a `string` type, but the final value was: `42`.",
+				"companyName must be a `string` type, but the final value was: `42`.",
+			);
+			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
+		});
+
+		it("should return a CustomError with a invalid employeeName type message", async () => {
+			let result: any;
+
+			try {
+				result = await validation({
+					cnpj: validCnpj,
+					cpf: validCpf,
+					employeeName: 42 as any,
+					companyName: validCompanyName,
+					password: validPassword,
+				});
+			} catch (err: any) {
+				result = err;
+			}
+
+			expect(result instanceof CustomError).toBeTruthy();
+			expect(result.message).toBe(
+				"employeeName must be a `string` type, but the final value was: `42`.",
 			);
 			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
 		});
@@ -218,7 +313,8 @@ describe("register validation", () => {
 				result = await validation({
 					cnpj: validCnpj,
 					cpf: validCpf,
-					name: validName,
+					companyName: validCompanyName,
+					employeeName: validEmployeeName,
 					password: 42 as any,
 				});
 			} catch (err: any) {
