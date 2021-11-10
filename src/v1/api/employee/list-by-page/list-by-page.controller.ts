@@ -27,5 +27,5 @@ export const listByPageController: Route = async (request, reply) => {
 			.send({ error: err.message });
 	}
 
-	reply.send(result);
+	return reply.send(result);
 };
