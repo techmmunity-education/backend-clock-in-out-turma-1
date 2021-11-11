@@ -3,6 +3,7 @@ import { StatusCodeEnum } from "v1/enum/status-code";
 import { encrypt } from "v1/utils/encrypt/encrypt";
 import { CustomError } from "v1/utils/error";
 import { EmployeeRepository } from "../employee.entity";
+import { canNotEditManager } from "./helpers/can-not-edit-manager";
 import { hasEmployeeWithSameCpf } from "./helpers/has-employee-with-same-cpf";
 
 export interface Injectables {
@@ -21,29 +22,25 @@ export interface RegisterEmployeeParams {
 
 export const employeeRegister = async (
 	{ employeeRepository }: Injectables,
-	params: RegisterEmployeeParams,
+	{ cnpj, cpf, name, password, role, salary, userRole }: RegisterEmployeeParams,
 ) => {
-	if (await hasEmployeeWithSameCpf({ employeeRepository, cpf: params.cpf })) {
+	if (await hasEmployeeWithSameCpf({ employeeRepository, cpf })) {
 		throw new CustomError(
 			"Employee with same CPF already registered",
 			StatusCodeEnum.CONFLICT,
 		);
 	}
-
-	if (
-		params.role === RoleTypeEnum.MANAGER &&
-		params.userRole !== RoleTypeEnum.MANAGER
-	) {
+	if (canNotEditManager({ role, userRole })) {
 		throw new CustomError("Unauthorized", StatusCodeEnum.UNAUTHORIZED);
 	}
 
 	const employeeParams = {
-		cnpj: params.cnpj,
-		cpf: params.cpf,
-		name: params.name,
-		password: await encrypt(params.password),
-		role: params.role,
-		salary: params.salary,
+		cnpj,
+		cpf,
+		name,
+		password: await encrypt(password),
+		role,
+		salary,
 		isValid: true,
 	};
 
