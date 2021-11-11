@@ -9,6 +9,7 @@ describe("edit validation", () => {
 	const changedName = "new test name";
 	const changedRole = RoleTypeEnum.HUMAN_RESOURCES;
 	const salary = 4000;
+	const validCnpj = "39.407.242/0001-30";
 
 	describe("Successful", () => {
 		it("should return validated params with all params been supplied", async () => {
@@ -22,6 +23,7 @@ describe("edit validation", () => {
 					role: changedRole,
 					salary,
 					userRole: RoleTypeEnum.MANAGER,
+					cnpj: validCnpj,
 				});
 			} catch (err: any) {
 				result = err;
@@ -34,6 +36,7 @@ describe("edit validation", () => {
 				role: changedRole,
 				salary,
 				userRole: RoleTypeEnum.MANAGER,
+				cnpj: validCnpj,
 			});
 		});
 
@@ -44,6 +47,7 @@ describe("edit validation", () => {
 				result = await validation({
 					id: "618c3566fd2594b90e6c9de9",
 					userRole: RoleTypeEnum.MANAGER,
+					cnpj: validCnpj,
 				});
 			} catch (err: any) {
 				result = err;
@@ -52,6 +56,7 @@ describe("edit validation", () => {
 			expect(result).toStrictEqual({
 				id: "618c3566fd2594b90e6c9de9",
 				userRole: RoleTypeEnum.MANAGER,
+				cnpj: validCnpj,
 			});
 		});
 	});
@@ -67,6 +72,7 @@ describe("edit validation", () => {
 					role: changedRole,
 					salary,
 					userRole: RoleTypeEnum.MANAGER,
+					cnpj: validCnpj,
 				} as EditParams);
 			} catch (err: any) {
 				result = err;
@@ -87,6 +93,7 @@ describe("edit validation", () => {
 					password: changedPassword,
 					role: changedRole,
 					salary,
+					cnpj: validCnpj,
 				} as EditParams);
 			} catch (err: any) {
 				result = err;
@@ -94,6 +101,27 @@ describe("edit validation", () => {
 
 			expect(result instanceof CustomError).toBeTruthy();
 			expect(result.message).toBe("userRole is a required field");
+			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
+		});
+
+		it("should throw a CustomError with a undefined cnpj param message", async () => {
+			let result: any;
+
+			try {
+				result = await validation({
+					id: "618c3566fd2594b90e6c9de9",
+					name: changedName,
+					password: changedPassword,
+					role: changedRole,
+					salary,
+					userRole: RoleTypeEnum.MANAGER,
+				} as EditParams);
+			} catch (err: any) {
+				result = err;
+			}
+
+			expect(result instanceof CustomError).toBeTruthy();
+			expect(result.message).toBe("cnpj is a required field");
 			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
 		});
 	});
@@ -110,6 +138,7 @@ describe("edit validation", () => {
 					role: changedRole,
 					salary,
 					userRole: RoleTypeEnum.MANAGER,
+					cnpj: validCnpj,
 				});
 			} catch (err: any) {
 				result = err;
@@ -133,6 +162,7 @@ describe("edit validation", () => {
 					role: changedRole,
 					salary,
 					userRole: RoleTypeEnum.MANAGER,
+					cnpj: validCnpj,
 				});
 			} catch (err: any) {
 				result = err;
@@ -156,6 +186,7 @@ describe("edit validation", () => {
 					role: changedRole,
 					salary,
 					userRole: RoleTypeEnum.MANAGER,
+					cnpj: validCnpj,
 				});
 			} catch (err: any) {
 				result = err;
@@ -179,6 +210,7 @@ describe("edit validation", () => {
 					role: 42 as any,
 					salary,
 					userRole: RoleTypeEnum.MANAGER,
+					cnpj: validCnpj,
 				});
 			} catch (err: any) {
 				result = err;
@@ -202,6 +234,7 @@ describe("edit validation", () => {
 					role: changedRole,
 					salary: "test" as any,
 					userRole: RoleTypeEnum.MANAGER,
+					cnpj: validCnpj,
 				});
 			} catch (err: any) {
 				result = err;
@@ -225,6 +258,7 @@ describe("edit validation", () => {
 					role: changedRole,
 					salary,
 					userRole: 42 as any,
+					cnpj: validCnpj,
 				});
 			} catch (err: any) {
 				result = err;
@@ -233,6 +267,30 @@ describe("edit validation", () => {
 			expect(result instanceof CustomError).toBeTruthy();
 			expect(result.message).toBe(
 				"userRole must be a `string` type, but the final value was: `42`.",
+			);
+			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
+		});
+
+		it("should return a CustomError with a invalid cnpj type message", async () => {
+			let result: any;
+
+			try {
+				result = await validation({
+					id: "618c3566fd2594b90e6c9de9",
+					name: changedName,
+					password: changedPassword,
+					role: changedRole,
+					salary,
+					userRole: RoleTypeEnum.MANAGER,
+					cnpj: 42 as any,
+				});
+			} catch (err: any) {
+				result = err;
+			}
+
+			expect(result instanceof CustomError).toBeTruthy();
+			expect(result.message).toBe(
+				"cnpj must be a `string` type, but the final value was: `42`.",
 			);
 			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
 		});

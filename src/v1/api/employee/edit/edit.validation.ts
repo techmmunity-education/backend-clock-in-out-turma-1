@@ -15,6 +15,7 @@ const schema = yup.object().shape({
 		.strict()
 		.required()
 		.oneOf([RoleTypeEnum.MANAGER, RoleTypeEnum.HUMAN_RESOURCES]),
+	cnpj: yup.string().strict().required(),
 });
 
 export const validation = (params: EditParams) =>
