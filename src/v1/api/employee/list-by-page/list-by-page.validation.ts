@@ -6,6 +6,7 @@ import { ListByPageParams } from "./list-by-page.service";
 const schema = yup.object().shape({
 	// eslint-disable-next-line @typescript-eslint/no-magic-numbers
 	page: yup.number().notRequired().min(1),
+	cnpj: yup.string().strict().required(),
 });
 
 export const validation = (params: ListByPageParams) =>

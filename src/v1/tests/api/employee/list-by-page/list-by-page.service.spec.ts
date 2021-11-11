@@ -37,6 +37,7 @@ describe("listByPage service", () => {
 					},
 					{
 						page: validPage,
+						cnpj: validCnpj,
 					},
 				);
 			} catch (err: any) {
@@ -56,7 +57,7 @@ describe("listByPage service", () => {
 					{
 						employeeRepository: employeeMock.repository,
 					},
-					{},
+					{ cnpj: validCpf },
 				);
 			} catch (err: any) {
 				result = err;
@@ -79,6 +80,31 @@ describe("listByPage service", () => {
 					},
 					{
 						page: 2,
+						cnpj: validCnpj,
+					},
+				);
+			} catch (err: any) {
+				result = err;
+			}
+
+			expect(result instanceof CustomError).toBeTruthy();
+			expect(result.message).toBe("No employee found for this page");
+			expect(result.statusCode).toBe(StatusCodeEnum.NOT_FOUND);
+		});
+
+		it("should throw a CustomError with a No employee found for this page message because of invalid cnpj been supplied", async () => {
+			let result: any;
+
+			employeeMock.repository.find.mockResolvedValue([]);
+
+			try {
+				result = await listByPage(
+					{
+						employeeRepository: employeeMock.repository,
+					},
+					{
+						page: 1,
+						cnpj: "847326716",
 					},
 				);
 			} catch (err: any) {

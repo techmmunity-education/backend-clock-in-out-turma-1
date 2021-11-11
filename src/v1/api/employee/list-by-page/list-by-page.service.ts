@@ -13,13 +13,15 @@ interface Injectables {
 
 export interface ListByPageParams {
 	page?: number;
+	cnpj: string;
 }
 
 export const listByPage = async (
 	{ employeeRepository }: Injectables,
-	{ page }: ListByPageParams,
+	{ page, cnpj }: ListByPageParams,
 ) => {
 	const listOfEmployees = await employeeRepository.find({
+		where: { cnpj },
 		skip: paginateEmployees(page),
 		take: EMPLOYEES_PER_PAGE,
 	});
