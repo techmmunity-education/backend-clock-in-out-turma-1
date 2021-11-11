@@ -47,6 +47,7 @@ export const register = async (
 		cpf: params.cpf,
 		password: await encrypt(params.password),
 		role: RoleTypeEnum.MANAGER,
+		isValid: true,
 	};
 
 	const employeeData = await employeeRepository.save(employeeParams);
