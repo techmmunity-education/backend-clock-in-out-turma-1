@@ -73,6 +73,7 @@ describe("edit validation", () => {
 					role: changedRole,
 					salary,
 					userRole: RoleTypeEnum.EMPLOYEE,
+					cnpj: validCnpj,
 				});
 			} catch (err: any) {
 				result = err;
