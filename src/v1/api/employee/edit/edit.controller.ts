@@ -9,12 +9,13 @@ import { validation } from "./edit.validation";
 
 export const editController: Route = async (request, reply) => {
 	const token = getToken(request);
-	const { employeeRole } = getUserData(token);
+	const { employeeRole, employeeCnpj } = getUserData(token);
 
 	const params = {
 		...(request.body as any),
 		id: (request.params as any).id,
 		userRole: employeeRole,
+		cnpj: employeeCnpj,
 	};
 
 	try {

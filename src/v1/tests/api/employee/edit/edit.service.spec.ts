@@ -46,6 +46,7 @@ describe("edit service", () => {
 						role: changedRole,
 						salary,
 						userRole: RoleTypeEnum.MANAGER,
+						cnpj: validCnpj,
 					},
 				);
 			} catch (err: any) {
@@ -87,6 +88,7 @@ describe("edit service", () => {
 						role: changedRole,
 						salary,
 						userRole: RoleTypeEnum.MANAGER,
+						cnpj: validCnpj,
 					},
 				);
 			} catch (err: any) {
@@ -125,6 +127,7 @@ describe("edit service", () => {
 						role: changedRole,
 						salary,
 						userRole: RoleTypeEnum.HUMAN_RESOURCES,
+						cnpj: validCnpj,
 					},
 				);
 			} catch (err: any) {

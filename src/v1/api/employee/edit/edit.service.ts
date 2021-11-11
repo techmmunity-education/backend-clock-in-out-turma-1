@@ -17,16 +17,17 @@ export interface EditParams {
 	role?: RoleTypeEnum;
 	salary?: number;
 	userRole: RoleTypeEnum;
+	cnpj: string;
 }
 
 export const editEmployee = async (
 	{ employeeRepository }: Injectables,
-	{ id, name, password, role, salary, userRole }: EditParams,
+	{ id, name, password, role, salary, userRole, cnpj }: EditParams,
 ) => {
 	const idToFind = new ObjectId(id);
 
 	const employeeData = await employeeRepository.findOne({
-		where: { _id: idToFind },
+		where: { _id: idToFind, cnpj },
 	});
 
 	if (!employeeData) {
