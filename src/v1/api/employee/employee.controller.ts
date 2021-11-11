@@ -4,6 +4,7 @@ import { setAuthorizationMiddleware } from "v1/common/middlewares/authorization"
 import { listByPageController } from "./list-by-page/list-by-page.controller";
 import { loginController } from "./login/login.controller";
 import { editController } from "./edit/edit.controller";
+import { employeeRegisterController } from "./register/register.controller";
 
 // eslint-disable-next-line require-await
 const employeeController: FastifyPluginAsync = async fastifyInstancePlugin => {
@@ -21,6 +22,7 @@ const authEmployeeController: FastifyPluginAsync =
 		);
 		fastifyInstancePlugin.get("/list-by-page", listByPageController);
 		fastifyInstancePlugin.put("/edit/:id", editController);
+		fastifyInstancePlugin.post("/register", employeeRegisterController);
 	};
 
 export const setEmployeeController = (

@@ -56,6 +56,31 @@ describe("edit validation", () => {
 		});
 	});
 
+	describe("Invalid params", () => {
+		it("should return a CustomError with a invalid userRole param message", async () => {
+			let result: any;
+
+			try {
+				result = await validation({
+					id: "618c3566fd2594b90e6c9de9",
+					name: changedName,
+					password: changedPassword,
+					role: changedRole,
+					salary,
+					userRole: RoleTypeEnum.EMPLOYEE,
+				});
+			} catch (err: any) {
+				result = err;
+			}
+
+			expect(result instanceof CustomError).toBeTruthy();
+			expect(result.message).toBe(
+				"userRole must be one of the following values: MANAGER, HUMAN_RESOURCES",
+			);
+			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
+		});
+	});
+
 	describe("Undefined params", () => {
 		it("should throw a CustomError with a undefined id param message", async () => {
 			let result: any;
