@@ -12,6 +12,7 @@ describe("register service", () => {
 	const validName = "KekTestCompany";
 	const validCreatedAt = new Date();
 	const validPassword = "fa98s7fa6";
+	const validNameEmployee = "test name";
 
 	describe("Successful", () => {
 		it("should return a authCode", async () => {
@@ -29,6 +30,7 @@ describe("register service", () => {
 				password: validPassword,
 				role: RoleTypeEnum.MANAGER,
 				isValid: true,
+				name: validNameEmployee,
 			});
 
 			companyMock.repository.save.mockResolvedValue(company);

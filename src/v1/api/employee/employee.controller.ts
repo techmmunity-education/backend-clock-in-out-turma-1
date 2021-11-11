@@ -3,6 +3,7 @@ import { RoleTypeEnum } from "v1/enum/role-types";
 import { setAuthorizationMiddleware } from "v1/common/middlewares/authorization";
 import { listByPageController } from "./list-by-page/list-by-page.controller";
 import { loginController } from "./login/login.controller";
+import { editController } from "./edit/edit.controller";
 
 // eslint-disable-next-line require-await
 const employeeController: FastifyPluginAsync = async fastifyInstancePlugin => {
@@ -19,6 +20,7 @@ const authEmployeeController: FastifyPluginAsync =
 			]),
 		);
 		fastifyInstancePlugin.get("/list-by-page", listByPageController);
+		fastifyInstancePlugin.put("/edit/:id", editController);
 	};
 
 export const setEmployeeController = (

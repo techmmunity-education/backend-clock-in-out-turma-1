@@ -9,6 +9,7 @@ describe("listByPage service", () => {
 	const validCpf = "867.020.740-00";
 	const validPassword = "fa98s7fa6";
 	const validPage = 1;
+	const validName = "test name";
 
 	let employee: any;
 
@@ -19,6 +20,7 @@ describe("listByPage service", () => {
 			password: validPassword,
 			role: RoleTypeEnum.EMPLOYEE,
 			isValid: true,
+			name: validName,
 		});
 	});
 
