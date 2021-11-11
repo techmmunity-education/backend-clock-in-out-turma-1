@@ -10,6 +10,7 @@ describe("login service", () => {
 	const validRole = RoleTypeEnum.EMPLOYEE;
 	const validCpf = "85414896347";
 	const validPassword = "5564848";
+	const validName = "test name";
 
 	let employeeDataMockDoc: any;
 
@@ -19,6 +20,7 @@ describe("login service", () => {
 			role: validRole,
 			cnpj: validCnpj,
 			password: validPassword,
+			name: validName,
 		});
 	});
 

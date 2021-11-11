@@ -15,6 +15,7 @@ describe("get-user-data util", () => {
 				password: "a8sd7as",
 				role: RoleTypeEnum.MANAGER,
 				isValid: true,
+				name: "test name",
 			});
 
 			const token = sign(employee);

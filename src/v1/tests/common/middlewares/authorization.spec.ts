@@ -46,6 +46,7 @@ describe("Authorization middleware", () => {
 				cpf: "867.020.740-00",
 				password: "fa98s7fa6",
 				role: RoleTypeEnum.MANAGER,
+				name: "test name",
 			});
 			const token = sign(employee);
 			const reply = {
@@ -159,6 +160,7 @@ describe("Authorization middleware", () => {
 				cpf: "867.020.740-00",
 				password: "fa98s7fa6",
 				role: RoleTypeEnum.EMPLOYEE,
+				name: "test name",
 			});
 			const token = sign(employee);
 

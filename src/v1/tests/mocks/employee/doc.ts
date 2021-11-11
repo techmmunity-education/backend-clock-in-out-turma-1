@@ -6,6 +6,7 @@ export interface CreateDoc {
 	id?: string;
 	cnpj: string;
 	cpf: string;
+	name: string;
 	password: string;
 	role: RoleTypeEnum;
 	salary?: number;
@@ -17,6 +18,7 @@ export const doc = async ({
 	id,
 	cnpj,
 	cpf,
+	name,
 	password,
 	role,
 	salary,
@@ -28,6 +30,7 @@ export const doc = async ({
 	isValid: isValid ?? true,
 	cnpj,
 	cpf,
+	name,
 	role,
 	salary,
 	firedAt,
