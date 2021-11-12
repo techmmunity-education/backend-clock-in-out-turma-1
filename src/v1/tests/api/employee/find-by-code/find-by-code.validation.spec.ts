@@ -1,4 +1,3 @@
-import { FindOneParams } from "v1/api/employee/find-by-code/find-by-code.service";
 import { validation } from "v1/api/employee/find-by-code/find-by-code.validation";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { CustomError } from "v1/utils/error";
@@ -24,40 +23,6 @@ describe("findOne validation", () => {
 				id: validId,
 				name: validName,
 			});
-		});
-	});
-
-	describe("Undefined params", () => {
-		it("should throw a CustomError with a undefined id params message", async () => {
-			let result: any;
-
-			try {
-				result = await validation({
-					name: validName,
-				} as FindOneParams);
-			} catch (err: any) {
-				result = err;
-			}
-
-			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("id is a required field");
-			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
-		});
-
-		it("should throw a CustomError with a undefined name params message", async () => {
-			let result: any;
-
-			try {
-				result = await validation({
-					id: validId,
-				} as FindOneParams);
-			} catch (err: any) {
-				result = err;
-			}
-
-			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("name is a required field");
-			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
 		});
 	});
 

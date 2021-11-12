@@ -4,8 +4,8 @@ import * as yup from "yup";
 import { FindOneParams } from "./find-by-code.service";
 
 const schema = yup.object().shape({
-	id: yup.string().strict(),
-	name: yup.string().strict(),
+	id: yup.string().strict().notRequired(),
+	name: yup.string().strict().notRequired(),
 });
 
 export const validation = (params: FindOneParams) =>
