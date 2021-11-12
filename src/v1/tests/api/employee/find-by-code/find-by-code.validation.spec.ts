@@ -1,9 +1,9 @@
-import { FindByCodeParams } from "v1/api/employee/find-by-code/find-by-code.service";
+import { FindOneParams } from "v1/api/employee/find-by-code/find-by-code.service";
 import { validation } from "v1/api/employee/find-by-code/find-by-code.validation";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { CustomError } from "v1/utils/error";
 
-describe("findByCode validation", () => {
+describe("findOne validation", () => {
 	const validId = "618c3356f5966632a4694bd1";
 	const validName = "João Ninguém";
 
@@ -34,7 +34,7 @@ describe("findByCode validation", () => {
 			try {
 				result = await validation({
 					name: validName,
-				} as FindByCodeParams);
+				} as FindOneParams);
 			} catch (err: any) {
 				result = err;
 			}
@@ -50,7 +50,7 @@ describe("findByCode validation", () => {
 			try {
 				result = await validation({
 					id: validId,
-				} as FindByCodeParams);
+				} as FindOneParams);
 			} catch (err: any) {
 				result = err;
 			}

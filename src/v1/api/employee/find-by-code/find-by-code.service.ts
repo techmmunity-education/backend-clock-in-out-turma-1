@@ -6,23 +6,24 @@ interface Injectables {
 	employeeRepository: EmployeeRepository;
 }
 
-export interface FindByCodeParams {
+export interface FindOneParams {
 	id: string;
 	name: string;
 }
 
-export const findByCode = async (
+export const findOne = async (
 	{ employeeRepository }: Injectables,
-	{ id, name }: FindByCodeParams,
+	{ id, name }: FindOneParams,
 ) => {
-	const code = await employeeRepository.findOne({
-		where: { id, name },
+	const employeeData = await employeeRepository.findOne({
+		where: { _id: id || name },
 	});
 
-	if (!code) {
+	if (!employeeData) {
 		throw new CustomError("Code not found", StatusCodeEnum.NOT_FOUND);
 	}
 
-	return code;
+	return employeeData;
 };
-export type FindByCodeType = typeof findByCode;
+
+export type FindOneType = typeof findOne;

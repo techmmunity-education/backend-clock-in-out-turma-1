@@ -2,10 +2,10 @@ import { getRepository } from "typeorm";
 import { Route } from "types/route";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { EmployeeEntity } from "../employee.entity";
-import { findByCode } from "./find-by-code.service";
+import { findOne } from "./find-by-code.service";
 import { validation } from "./find-by-code.validation";
 
-export const findByCodeController: Route = async (request, reply) => {
+export const findOneController: Route = async (request, reply) => {
 	let result;
 
 	try {
@@ -13,7 +13,7 @@ export const findByCodeController: Route = async (request, reply) => {
 
 		const employeeRepository = getRepository(EmployeeEntity);
 
-		result = await findByCode(
+		result = await findOne(
 			{
 				employeeRepository,
 			},
@@ -27,5 +27,5 @@ export const findByCodeController: Route = async (request, reply) => {
 		});
 	}
 
-	reply.send(result);
+	return reply.send(result);
 };

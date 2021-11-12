@@ -1,10 +1,10 @@
-import { findByCode } from "v1/api/employee/find-by-code/find-by-code.service";
+import { findOne } from "v1/api/employee/find-by-code/find-by-code.service";
 import { RoleTypeEnum } from "v1/enum/role-types";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { employeeMock } from "v1/tests/mocks/employee";
 import { CustomError } from "v1/utils/error";
 
-describe("findByCode service", () => {
+describe("findOne service", () => {
 	const validId = "618c3356f5966632a4694bd1";
 	const validName = "João Ninguém";
 
@@ -28,7 +28,7 @@ describe("findByCode service", () => {
 			employeeMock.repository.findOne.mockResolvedValue(employeeMockDoc);
 
 			try {
-				result = await findByCode(
+				result = await findOne(
 					{
 						employeeRepository: employeeMock.repository,
 					},
@@ -52,7 +52,7 @@ describe("findByCode service", () => {
 			employeeMock.repository.findOne.mockResolvedValue(undefined);
 
 			try {
-				result = await findByCode(
+				result = await findOne(
 					{
 						employeeRepository: employeeMock.repository,
 					},
