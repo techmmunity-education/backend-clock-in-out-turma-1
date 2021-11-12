@@ -22,7 +22,7 @@ const authEmployeeController: FastifyPluginAsync =
 		fastifyInstancePlugin.get("/list-by-page", listByPageController);
 		fastifyInstancePlugin.put("/edit/:id", editController);
 		fastifyInstancePlugin.post("/register", employeeRegisterController);
-		fastifyInstancePlugin.get("/find-by-code", loginController);
+		fastifyInstancePlugin.get("/find-one", loginController);
 	};
 
 export const setEmployeeController = (

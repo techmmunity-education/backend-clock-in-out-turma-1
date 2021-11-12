@@ -1,7 +1,7 @@
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { CustomError } from "v1/utils/error";
 import * as yup from "yup";
-import { FindOneParams } from "./find-by-code.service";
+import { FindOneParams } from "./find-one.service";
 
 const schema = yup.object().shape({
 	id: yup.string().strict().notRequired(),

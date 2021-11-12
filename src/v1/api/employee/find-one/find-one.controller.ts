@@ -2,8 +2,8 @@ import { getRepository } from "typeorm";
 import { Route } from "types/route";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { EmployeeEntity } from "../employee.entity";
-import { findOne } from "./find-by-code.service";
-import { validation } from "./find-by-code.validation";
+import { findOne } from "./find-one.service";
+import { validation } from "./find-one.validation";
 
 export const findOneController: Route = async (request, reply) => {
 	let result;

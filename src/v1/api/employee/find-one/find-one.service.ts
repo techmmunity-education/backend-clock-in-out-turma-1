@@ -16,11 +16,11 @@ export const findOne = async (
 	{ id, name }: FindOneParams,
 ) => {
 	const employeeData = await employeeRepository.findOne({
-		where: { _id: id || name },
+		where: { $or: [{ _id: id }, { name }] },
 	});
 
 	if (!employeeData) {
-		throw new CustomError("Code not found", StatusCodeEnum.NOT_FOUND);
+		throw new CustomError("Employee not found", StatusCodeEnum.NOT_FOUND);
 	}
 
 	return employeeData;

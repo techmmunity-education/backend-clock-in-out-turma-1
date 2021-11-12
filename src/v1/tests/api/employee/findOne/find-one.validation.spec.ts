@@ -1,4 +1,4 @@
-import { validation } from "v1/api/employee/find-by-code/find-by-code.validation";
+import { validation } from "v1/api/employee/find-one/find-one.validation";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { CustomError } from "v1/utils/error";
 

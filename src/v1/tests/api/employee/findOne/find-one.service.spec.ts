@@ -1,4 +1,4 @@
-import { findOne } from "v1/api/employee/find-by-code/find-by-code.service";
+import { findOne } from "v1/api/employee/find-one/find-one.service";
 import { RoleTypeEnum } from "v1/enum/role-types";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { employeeMock } from "v1/tests/mocks/employee";
@@ -66,7 +66,7 @@ describe("findOne service", () => {
 			}
 
 			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("Code not found");
+			expect(result.message).toBe("Employee not found");
 			expect(result.statusCode).toBe(StatusCodeEnum.NOT_FOUND);
 		});
 	});
