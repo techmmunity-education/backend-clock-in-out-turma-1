@@ -93,9 +93,7 @@ describe("register validation", () => {
 			}
 
 			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe(
-				"companyName must be at most 1000 characters",
-			);
+			expect(result.message).toBe("companyName must be at most 250 characters");
 			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
 		});
 	});
@@ -116,7 +114,7 @@ describe("register validation", () => {
 		}
 
 		expect(result instanceof CustomError).toBeTruthy();
-		expect(result.message).toBe("employeeName must be at most 1000 characters");
+		expect(result.message).toBe("employeeName must be at most 100 characters");
 		expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
 	});
 

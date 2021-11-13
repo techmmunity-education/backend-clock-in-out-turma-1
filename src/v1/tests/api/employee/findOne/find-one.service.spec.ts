@@ -45,6 +45,27 @@ describe("findOne service", () => {
 		});
 	});
 
+	describe("Undefined", () => {
+		it("should throw a CustomError with no params", async () => {
+			let result: any;
+
+			try {
+				result = await findOne(
+					{
+						employeeRepository: employeeMock.repository,
+					},
+					{},
+				);
+			} catch (err: any) {
+				result = err;
+			}
+
+			expect(result instanceof CustomError).toBeTruthy();
+			expect(result.message).toBe("id or name are required");
+			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
+		});
+	});
+
 	describe("Failure", () => {
 		it("should throw a CustomError with employee not found message", async () => {
 			let result: any;
