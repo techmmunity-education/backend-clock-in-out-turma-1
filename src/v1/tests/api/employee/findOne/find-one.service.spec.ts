@@ -22,7 +22,7 @@ describe("findOne service", () => {
 	});
 
 	describe("Successful", () => {
-		it("should return a id code", async () => {
+		it("should return employee data", async () => {
 			let result: any;
 
 			employeeMock.repository.findOne.mockResolvedValue(employeeMockDoc);
@@ -46,7 +46,7 @@ describe("findOne service", () => {
 	});
 
 	describe("Failure", () => {
-		it("should throw a CustomError with a code not found message", async () => {
+		it("should throw a CustomError with employee not found message", async () => {
 			let result: any;
 
 			employeeMock.repository.findOne.mockResolvedValue(undefined);

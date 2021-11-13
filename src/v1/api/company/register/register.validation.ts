@@ -7,8 +7,8 @@ import { RegisterParams } from "./register.service";
 const schema = yup.object().shape({
 	cnpj: yup.string().strict().required(),
 	cpf: yup.string().strict().required(),
-	companyName: yup.string().strict().required().min(3).max(1000),
-	employeeName: yup.string().strict().required().min(3).max(1000),
+	companyName: yup.string().strict().required().min(3).max(250),
+	employeeName: yup.string().strict().required().min(3).max(100),
 	password: yup.string().strict().required(),
 });
 
