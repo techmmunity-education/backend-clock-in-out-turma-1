@@ -14,7 +14,8 @@ interface Injectables {
 
 export interface RegisterParams {
 	cnpj: string;
-	name: string;
+	companyName: string;
+	employeeName: string;
 	cpf: string;
 	password: string;
 }
@@ -37,7 +38,7 @@ export const register = async (
 
 	const companyParams = {
 		cnpj: params.cnpj,
-		name: params.name,
+		name: params.companyName,
 	};
 
 	await companyRepository.save(companyParams);
@@ -45,6 +46,7 @@ export const register = async (
 	const employeeParams = {
 		cnpj: params.cnpj,
 		cpf: params.cpf,
+		name: params.employeeName,
 		password: await encrypt(params.password),
 		role: RoleTypeEnum.MANAGER,
 		isValid: true,

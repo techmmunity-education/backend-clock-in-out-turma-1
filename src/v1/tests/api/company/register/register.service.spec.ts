@@ -9,10 +9,10 @@ import { sign } from "v1/utils/jwt/sign";
 describe("register service", () => {
 	const validCnpj = "39.407.242/0001-30";
 	const validCpf = "867.020.740-00";
-	const validName = "KekTestCompany";
+	const validCompanyName = "KekTestCompany";
+	const validEmployeeName = "KekTestEmployee";
 	const validCreatedAt = new Date();
 	const validPassword = "fa98s7fa6";
-	const validNameEmployee = "test name";
 
 	describe("Successful", () => {
 		it("should return a authCode", async () => {
@@ -20,17 +20,17 @@ describe("register service", () => {
 
 			const company = await companyMock.doc({
 				cnpj: validCnpj,
-				name: validName,
+				name: validCompanyName,
 				createdAt: validCreatedAt,
 			});
 
 			const employee = await employeeMock.doc({
 				cnpj: validCnpj,
 				cpf: validCpf,
+				name: validEmployeeName,
 				password: validPassword,
 				role: RoleTypeEnum.MANAGER,
 				isValid: true,
-				name: validNameEmployee,
 			});
 
 			companyMock.repository.save.mockResolvedValue(company);
@@ -45,7 +45,8 @@ describe("register service", () => {
 					},
 					{
 						cnpj: validCnpj,
-						name: validName,
+						companyName: validCompanyName,
+						employeeName: validEmployeeName,
 						cpf: validCpf,
 						password: validPassword,
 					},
@@ -66,7 +67,7 @@ describe("register service", () => {
 
 			const company = await companyMock.doc({
 				cnpj: validCnpj,
-				name: validName,
+				name: validCompanyName,
 				createdAt: validCreatedAt,
 			});
 
@@ -80,7 +81,8 @@ describe("register service", () => {
 					},
 					{
 						cnpj: validCnpj,
-						name: validName,
+						companyName: validCompanyName,
+						employeeName: validEmployeeName,
 						cpf: validCpf,
 						password: validPassword,
 					},

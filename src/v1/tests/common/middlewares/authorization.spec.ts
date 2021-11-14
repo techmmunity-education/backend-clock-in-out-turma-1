@@ -43,10 +43,10 @@ describe("Authorization middleware", () => {
 		it("shouldn't return any error", async () => {
 			const employee = await employeeMock.doc({
 				cnpj: "39.407.242/0001-30",
+				name: "João Ninguém",
 				cpf: "867.020.740-00",
 				password: "fa98s7fa6",
 				role: RoleTypeEnum.MANAGER,
-				name: "test name",
 			});
 			const token = sign(employee);
 			const reply = {
@@ -158,9 +158,9 @@ describe("Authorization middleware", () => {
 			const employee = await employeeMock.doc({
 				cnpj: "39.407.242/0001-30",
 				cpf: "867.020.740-00",
+				name: "João Ninguém",
 				password: "fa98s7fa6",
 				role: RoleTypeEnum.EMPLOYEE,
-				name: "test name",
 			});
 			const token = sign(employee);
 
